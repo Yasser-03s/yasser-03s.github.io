@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#0d0f13">
+  <meta name="description" content="DUNK RR — a strict basketball training progression tracker with Valorant-style ranks.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DUNK RR">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="icon" href="assets/icons/icon-192.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+  <title>DUNK RR</title>
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">TRAINING QUEUE</div>
+        <h1>DUNK<span>RR</span></h1>
+      </div>
+      <button id="quickInstall" class="icon-btn" aria-label="Install app" title="Install app">＋</button>
+    </header>
+
+    <main id="screen" class="screen" tabindex="-1"></main>
+
+    <nav class="tabbar" aria-label="Primary navigation">
+      <button class="tab active" data-route="home"><span>⌂</span><small>Home</small></button>
+      <button class="tab" data-route="workout"><span>◈</span><small>Workout</small></button>
+      <button class="tab" data-route="history"><span>◷</span><small>History</small></button>
+      <button class="tab" data-route="settings"><span>⚙</span><small>Settings</small></button>
+    </nav>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>

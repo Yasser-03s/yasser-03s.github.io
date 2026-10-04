@@ -1,0 +1,13 @@
+{
+  "name":"dunk-rr-pwa",
+  "private":true,
+  "version":"1.0.0",
+  "type":"module",
+  "scripts":{
+    "fetch-ranks":"node scripts/fetch-ranks.mjs",
+    "serve":"python3 -m http.server 4173"
+  },
+  "devDependencies":{
+    "sharp":"^0.33.5"
+  }
+}
