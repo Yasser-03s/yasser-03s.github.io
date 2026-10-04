@@ -1,21 +1,17 @@
-# GitHub Pages deployment
+# DUNK RR — GitHub Pages deployment
 
-This project contains all app code in the repository root. The 25 rank PNGs do not need to be manually edited.
+This is a static PWA. The GitHub Actions workflow downloads the 25 supplied Valorant rank PNGs during the build, removes the edge-connected corner-color background using Pillow, verifies all 25 assets exist, and then deploys the complete site.
 
-## Automatic (recommended)
+## Repository layout
 
-1. Push this repository to `yasser-03s.github.io` on the `main` branch.
-2. In GitHub: Settings -> Pages -> Source -> GitHub Actions.
-3. Push/commit any change. The included workflow `.github/workflows/deploy-pages.yml` downloads the exact Wiki rank PNGs, removes only the corner-connected background color, and deploys the finished PWA.
-4. Open `https://yasser-03s.github.io/`.
+For `https://yasser-03s.github.io/`, the repository must be `yasser-03s.github.io` and `index.html` must be at the repository root.
 
-## Local preparation
+## GitHub setup
 
-On a machine with Node.js 20+ and internet access:
+1. Upload the **contents** of this project to the repository root. Do not put everything inside a `dunkrank/` subfolder.
+2. Commit to `main`.
+3. Go to **Settings → Pages**.
+4. Under **Build and deployment → Source**, choose **GitHub Actions**.
+5. Push a new commit or run the **Deploy DUNK RR to GitHub Pages** workflow manually from the Actions tab.
 
-```bash
-npm install
-npm run fetch-ranks
-```
-
-This creates `assets/ranks/iron1.png` ... `assets/ranks/radiant.png` with transparent backgrounds.
+The workflow does not use npm or a lockfile, so GitHub's npm cache/lockfile issue cannot occur.

@@ -19,25 +19,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Python
+        uses: actions/setup-python@v7
         with:
-          node-version: 20
-          cache: npm
+          python-version: '3.13'
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install image tooling
+        run: python -m pip install --disable-pip-version-check --no-cache-dir Pillow
 
-      - name: Download + remove rank backgrounds
-        run: npm run fetch-ranks
+      - name: Download rank PNGs + remove edge background
+        run: python scripts/fetch-ranks.py
+
+      - name: Verify required rank assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(find assets/ranks -maxdepth 1 -type f -name '*.png' | wc -l)
+          test "$count" -eq 25
+          echo "Verified $count rank PNGs."
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: .
 
@@ -50,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

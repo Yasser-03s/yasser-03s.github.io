@@ -1,14 +1,9 @@
 {
   "name": "dunk-rr-pwa",
   "private": true,
-  "version": "1.0.0",
-  "type": "module",
+  "version": "1.1.0",
   "scripts": {
-    "fetch-ranks": "node scripts/fetch-ranks.mjs",
     "serve": "python3 -m http.server 4173",
-    "prepare": "npm run fetch-ranks"
-  },
-  "devDependencies": {
-    "sharp": "^0.33.5"
+    "fetch-ranks": "python3 scripts/fetch-ranks.py"
   }
 }

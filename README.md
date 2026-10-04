@@ -1,82 +1,36 @@
-# DUNK RR — Basketball Training PWA
+# DUNK RR — Workout Rank PWA
 
-A mobile-first, local-first Progressive Web App for the supplied basketball routine.
+Mobile-first Progressive Web App for tracking the DUNK RR workout routine with Valorant-style ranks from Iron 1 to Radiant.
 
-## What is implemented
+## Rank images
 
-- 27 rank states: Iron 1 → Radiant.
-- 100 RR per rank.
-- Exercise-specific RR values based on movement difficulty and volume.
-- Rank-up difficulty modifier: 95% Platinum, 90% Diamond, 85% Ascendant, 80% Immortal/Radiant.
-- +RR only when an exercise reaches its target.
-- Every exercise can be opened as a large tap counter.
-- Repetition controls: −1 / +1 / +5 / +10.
-- Time controls: −5s / +5s / +10s / +30s plus a timer.
-- Full-group button fills only unfinished exercises and never duplicates rewards.
-- Daily primary requirement for streak.
-- Missed primary day: −10 RR, once per date.
-- Streak milestone bonuses at 3 / 7 / 14 / 30 / 60 / 100 days.
-- 3 heavy sessions per Monday–Sunday training week; each heavy group can only be logged on its scheduled weekday; the third heavy session triggers +25 RR.
-- +RR weekly cap: 210.
-- Maximum 3 rank-ups per week.
-- Heavy-session recovery lock after 3/3.
-- Anti-double-reward locks after an exercise has paid RR.
-- LocalStorage persistence, JSON export/import, reset.
-- PWA manifest + service worker + iPhone safe-area styling.
+You do **not** need to manually download or process the rank PNGs. The GitHub Actions deployment workflow downloads the 25 supplied Wiki images at build time and removes the background by using the corner pixel color with an edge-connected flood fill. It then verifies that all 25 local transparent PNGs exist before deploying.
 
-## Schedule logic
+The deployed app uses `assets/ranks/*.png`, so rank images are local to the PWA and are cached for offline use.
 
-The daily primary is designed so recovery is real instead of being a punishment system:
+## GitHub Pages
 
-- Monday–Thursday: Morning routine is the daily minimum; Tuesday/Thursday silent strength is optional support work.
-- Friday: Plyometrics & Core is the primary heavy session.
-- Saturday: Shooting, Handles & Vision is the primary heavy session.
-- Sunday: Finishing & Handles in Movement is the primary heavy session.
+For `https://yasser-03s.github.io/`:
 
-The morning routine can still be logged on any day, but it is not required on a heavy day because the heavy session itself maintains the streak.
+- Repository: `Yasser-03s/yasser-03s.github.io`
+- Put `index.html` directly in the repository root.
+- Push to `main`.
+- In **Settings → Pages**, choose **GitHub Actions** as the source.
+- The workflow `.github/workflows/deploy-pages.yml` builds and deploys the site automatically.
 
-## Exact rank art + background removal
+The deployment workflow intentionally does not use npm, npm caching, or a lockfile. This avoids the common `Dependencies lock file is not found` failure from `actions/setup-node` npm caching.
 
-`app.js` keeps the exact rank URLs you supplied as the primary remote source and uses an xPulz mirror as a display fallback. To vendor the exact PNGs locally and remove the corner-color background, run:
-
-```bash
-npm install
-npm run fetch-ranks
-```
-
-That creates `assets/ranks/*.png`. Once those files exist, the PWA automatically uses them first.
-
-## Local test
-
-From this folder:
+## Local development
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Then open `http://localhost:4173` on a computer. For iPhone testing, use a real HTTPS deployment; Safari web apps are intended to be added from a website rather than a plain `file://` URL.
+For local rank generation (requires Pillow):
 
-## Deploy — easiest: GitHub Pages
+```bash
+python3 -m pip install Pillow
+python3 scripts/fetch-ranks.py
+```
 
-1. Create a GitHub repository and upload the entire folder.
-2. In **Settings → Pages**, choose a publishing source/branch.
-3. Wait for the Pages URL to go live.
-4. Confirm the site opens with `https://`.
-5. On iPhone: Safari → Share → **Add to Home Screen** → enable **Open as Web App** → Add.
-
-GitHub documents that `github.io` Pages sites are served over HTTPS automatically, and HTTPS can be enforced in Pages settings.
-
-## Deploy — Vercel
-
-1. Import the repository into Vercel.
-2. No build command is required for the static app; the repository can be served as-is.
-3. Deploy and open the HTTPS URL on iPhone.
-4. Add it to Home Screen as a Web App.
-
-## Important note
-
-This is local-first. Your data is stored in the browser on that device. Export a JSON backup before changing/resetting data or moving devices.
-
-
-### Rank images
-The app now uses `wiki.playvalorant.com` (not the retired/incorrect `wiki.valorant.com` hostname) and correctly falls back from local PNGs → Wiki PNG → mirror → app icon. The service-worker cache is bumped so deployed iPhones can pick up the fix.
+Then open `http://localhost:4173/`.

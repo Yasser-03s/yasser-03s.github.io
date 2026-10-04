@@ -1,7 +1,32 @@
-const CACHE = 'dunk-rr-v4';
+const CACHE = 'dunk-rr-v5';
 const SHELL = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './offline.html',
-  './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/apple-touch-icon.png'
+  './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/apple-touch-icon.png',
+  './assets/ranks/iron1.png',
+  './assets/ranks/iron2.png',
+  './assets/ranks/iron3.png',
+  './assets/ranks/bronze1.png',
+  './assets/ranks/bronze2.png',
+  './assets/ranks/bronze3.png',
+  './assets/ranks/silver1.png',
+  './assets/ranks/silver2.png',
+  './assets/ranks/silver3.png',
+  './assets/ranks/gold1.png',
+  './assets/ranks/gold2.png',
+  './assets/ranks/gold3.png',
+  './assets/ranks/platinum1.png',
+  './assets/ranks/platinum2.png',
+  './assets/ranks/platinum3.png',
+  './assets/ranks/diamond1.png',
+  './assets/ranks/diamond2.png',
+  './assets/ranks/diamond3.png',
+  './assets/ranks/ascendant1.png',
+  './assets/ranks/ascendant2.png',
+  './assets/ranks/ascendant3.png',
+  './assets/ranks/immortal1.png',
+  './assets/ranks/immortal2.png',
+  './assets/ranks/immortal3.png',
+  './assets/ranks/radiant.png'
 ];
 
 self.addEventListener('install', event => {
