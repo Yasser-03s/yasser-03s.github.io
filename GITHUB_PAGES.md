@@ -1,40 +1,21 @@
-# DUNK RR — GitHub Pages
+# GitHub Pages deployment
 
-## For `https://yasser-03s.github.io/`
+This project contains all app code in the repository root. The 25 rank PNGs do not need to be manually edited.
 
-The repository must be named exactly:
+## Automatic (recommended)
 
-`yasser-03s.github.io`
+1. Push this repository to `yasser-03s.github.io` on the `main` branch.
+2. In GitHub: Settings -> Pages -> Source -> GitHub Actions.
+3. Push/commit any change. The included workflow `.github/workflows/deploy-pages.yml` downloads the exact Wiki rank PNGs, removes only the corner-connected background color, and deploys the finished PWA.
+4. Open `https://yasser-03s.github.io/`.
 
-Upload the **contents of this folder** to the repository root. Do NOT upload the `dunkrank` folder itself.
+## Local preparation
 
-Expected repository root:
+On a machine with Node.js 20+ and internet access:
 
-- index.html
-- app.js
-- styles.css
-- manifest.webmanifest
-- sw.js
-- offline.html
-- assets/
-- scripts/
-- package.json
-- .nojekyll
+```bash
+npm install
+npm run fetch-ranks
+```
 
-Then open:
-
-Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main → Folder: /(root) → Save.
-
-Your site will be:
-
-https://yasser-03s.github.io/
-
-## For a normal project repository
-
-If the repository is named `dunkrank`, the site is normally:
-
-https://yasser-03s.github.io/dunkrank/
-
-## iPhone installation
-
-Open the published HTTPS URL in Safari → Share → Add to Home Screen → enable Open as Web App → Add.
+This creates `assets/ranks/iron1.png` ... `assets/ranks/radiant.png` with transparent backgrounds.

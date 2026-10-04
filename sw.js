@@ -1,4 +1,4 @@
-const CACHE = 'dunk-rr-v3';
+const CACHE = 'dunk-rr-v4';
 const SHELL = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './offline.html',
   './assets/icons/icon-192.png', './assets/icons/icon-512.png', './assets/icons/apple-touch-icon.png'

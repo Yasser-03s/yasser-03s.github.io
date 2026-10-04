@@ -1,10 +1,10 @@
 /* DUNK RR — vanilla JS PWA. Data stays in localStorage; no account/backend required. */
-const APP_VERSION = 2;
+const APP_VERSION = 3;
 const STORAGE_KEY = 'dunk-rr-state-v1';
 const WEEKLY_POSITIVE_CAP = 210;
 const MAX_WEEKLY_RANKUPS = 3;
 const MISS_PENALTY = 10;
-const RANK_COUNT = 22;
+const RANK_COUNT = 25;
 const TOTAL_MAX_RATING = RANK_COUNT * 100 - 1;
 
 const RANKS = [
