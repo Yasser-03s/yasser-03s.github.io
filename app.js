@@ -1,10 +1,10 @@
 /* DUNK RR — vanilla JS PWA. Data stays in localStorage; no account/backend required. */
-const APP_VERSION = 1;
+const APP_VERSION = 2;
 const STORAGE_KEY = 'dunk-rr-state-v1';
 const WEEKLY_POSITIVE_CAP = 210;
 const MAX_WEEKLY_RANKUPS = 3;
 const MISS_PENALTY = 10;
-const RANK_COUNT = 27;
+const RANK_COUNT = 22;
 const TOTAL_MAX_RATING = RANK_COUNT * 100 - 1;
 
 const RANKS = [
@@ -22,8 +22,8 @@ const RANKS = [
   name: div ? `${tier} ${div}` : 'Radiant',
   file: div ? `${tier.toLowerCase()}${div}.png` : 'radiant.png',
   wiki: div
-    ? `https://wiki.valorant.com/en-us/images/thumb/${tier}_${div}_Rank.png/120px-${tier}_${div}_Rank.png`
-    : 'https://wiki.valorant.com/en-us/images/thumb/Radiant_Rank.png/120px-Radiant_Rank.png',
+    ? `https://wiki.playvalorant.com/en-us/images/thumb/${tier}_${div}_Rank.png/120px-${tier}_${div}_Rank.png`
+    : 'https://wiki.playvalorant.com/en-us/images/thumb/Radiant_Rank.png/120px-Radiant_Rank.png',
   mirror: `https://xpulz.com/img/game/valorant/tiers/${div ? tier.toLowerCase() + div : 'radiant'}.png`
 }));
 
@@ -402,20 +402,26 @@ function counterButtons(exercise){
 
 function rankImg(rank, className='rank-img'){
   const local=`assets/ranks/${rank.file}`;
-  const src=local;
+  const escapedLocal=local.replace(/'/g,'\\\'');
   const escapedWiki=rank.wiki.replace(/'/g,'\\\'');
   const escapedMirror=rank.mirror.replace(/'/g,'\\\'');
-  return `<img class="${className}" src="${src}" alt="${rank.name}" loading="eager" data-wiki="${escapedWiki}" data-mirror="${escapedMirror}" onerror="rankFallback(this)">`;
+  return `<img class="${className}" src="${escapedLocal}" alt="${rank.name}" loading="eager" data-stage="local" data-local="${escapedLocal}" data-wiki="${escapedWiki}" data-mirror="${escapedMirror}" onerror="rankFallback(this)">`;
 }
 function rankFallback(img){
-  if(img.dataset.stage==='local') return;
-  if(!img.dataset.stage || img.dataset.stage==='wiki'){
-    img.dataset.stage='wiki'; img.src=img.dataset.wiki; return;
+  const stage=img.dataset.stage || 'local';
+  if(stage==='local'){
+    img.dataset.stage='wiki';
+    img.src=img.dataset.wiki;
+    return;
   }
-  if(img.dataset.stage==='wiki'){
-    img.dataset.stage='mirror'; img.src=img.dataset.mirror; return;
+  if(stage==='wiki'){
+    img.dataset.stage='mirror';
+    img.src=img.dataset.mirror;
+    return;
   }
-  img.onerror=null; img.src='assets/icon.svg'; img.classList.add('rank-fallback');
+  img.onerror=null;
+  img.src='assets/icon.svg';
+  img.classList.add('rank-fallback');
 }
 window.rankFallback=rankFallback;
 
